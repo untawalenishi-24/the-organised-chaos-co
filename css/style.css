@@ -334,6 +334,8 @@ button:hover {
     color: #f7f2eb;
     text-decoration: none;
     transition: color .3s ease;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .contact-item a:hover {
