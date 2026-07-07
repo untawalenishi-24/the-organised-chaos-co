@@ -33,13 +33,12 @@ body {
     margin-bottom:2px;
 }
 
-.logo-image{
+.logo-image {
     width: 280px;
     height: auto;
     display: block;
     margin: 0 auto;
 
-    transform: scale(1.15);
     transform-origin: center;
 }
 nav {
@@ -506,12 +505,30 @@ nav ul li a:active {
 
 @media (max-width: 1024px) {
 
+    .site-header {
+        padding: 8px 20px;
+    }
+
+    .logo-image {
+        width: 250px;
+    }
+
+    nav ul {
+        gap: 25px;
+    }
+
     .hero {
-        padding: 190px 50px 80px;
+        padding: 220px 50px 80px;
     }
 
     .hero-content {
         max-width: 100%;
+    }
+
+    .small-text {
+        font-size: 12px;
+        letter-spacing: 2px;
+        line-height: 1.6;
     }
 
     .hero h1 {
@@ -520,42 +537,6 @@ nav ul li a:active {
 
     .hero-text {
         font-size: 20px;
-    }
-
-    .small-text {
-        display: block;
-        font-size: 12px;
-        letter-spacing: 2px;
-        line-height: 1.8;
-        max-width: 100%;
-    }
-}
-
-@media (max-width: 768px) {
-
-    .logo-image {
-        width: 220px;
-    }
-
-    nav ul {
-        gap: 25px;
-    }
-
-    .hero {
-        padding: 170px 30px 60px;
-    }
-
-    .hero h1 {
-        font-size: 40px;
-    }
-
-    .hero-text {
-        font-size: 18px;
-    }
-
-    .small-text {
-        font-size: 11px;
-        letter-spacing: 1.5px;
     }
 
     .about,
@@ -567,46 +548,63 @@ nav ul li a:active {
     .why-grid {
         grid-template-columns: 1fr;
     }
-
-    .contact-item {
-        width: 100%;
-    }
 }
-/* -------------------- */
-/* Tablet */
-/* -------------------- */
-@media (max-width: 1024px) {
 
-    .site-header {
-        padding: 10px 20px;
-    }
+@media (max-width: 768px) {
 
     .logo-image {
-        width: 220px;
+        width: 200px;
     }
 
     nav ul {
-        gap: 25px;
+        gap: 12px;
+        flex-wrap: wrap;
     }
 
     .hero {
-        padding: 170px 50px 80px;
+        padding: 210px 25px 70px;
+        text-align: center;
     }
 
-    .hero h1 {
-        font-size: 48px;
+    .hero-content {
+        margin: 0 auto;
     }
 
-    .hero-text {
-        font-size: 20px;
+    .hero-line {
+        margin: 20px auto;
     }
 
     .small-text {
-        font-size: 12px;
-        letter-spacing: 2px;
+        font-size: 11px;
+        letter-spacing: 1px;
+        padding: 8px 14px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .hero-text {
+        font-size: 18px;
+        max-width: 100%;
+    }
+
+    .about,
+    .services,
+    .why-us,
+    .contact {
+        padding: 70px 25px;
+    }
+
+    .contact-details {
+        flex-direction: column;
+    }
+
+    .service-grid,
+    .why-grid {
+        grid-template-columns: 1fr;
     }
 }
-
 /* -------------------- */
 /* Mobile */
 /* -------------------- */
