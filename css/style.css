@@ -198,7 +198,7 @@ button:hover {
 }
 .service-card {
     background: rgba(247, 242, 235, 0.98);
-    overflow: hidden;
+    overflow: visible;
     padding: 35px;
     border-radius: 15px;
 
@@ -319,7 +319,7 @@ button:hover {
     padding: 30px 25px;
     border-radius: 18px;
     text-align: center;
-    overflow: hidden;
+    overflow: visible;
 
     color: #f7f2eb;
 
@@ -355,6 +355,10 @@ button:hover {
     line-height: 1.7;
     color: #efe6da;
     font-size: 17px;
+    
+    width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 nav ul li a{
     position: relative;
