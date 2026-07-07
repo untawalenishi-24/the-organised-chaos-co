@@ -355,7 +355,7 @@ button:hover {
     line-height: 1.7;
     color: #efe6da;
     font-size: 17px;
-    
+
     width: 100%;
     overflow-wrap: anywhere;
     word-break: break-word;
@@ -499,4 +499,76 @@ nav ul li a:active {
     background:#9d8366;
     color:white;
     transform:translateY(-3px);
+}
+/* =========================
+   Responsive Design
+========================= */
+
+@media (max-width: 1024px) {
+
+    .hero {
+        padding: 190px 50px 80px;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .hero-text {
+        font-size: 20px;
+    }
+
+    .small-text {
+        display: block;
+        font-size: 12px;
+        letter-spacing: 2px;
+        line-height: 1.8;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .logo-image {
+        width: 220px;
+    }
+
+    nav ul {
+        gap: 25px;
+    }
+
+    .hero {
+        padding: 170px 30px 60px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero-text {
+        font-size: 18px;
+    }
+
+    .small-text {
+        font-size: 11px;
+        letter-spacing: 1.5px;
+    }
+
+    .about,
+    .contact-details {
+        flex-direction: column;
+    }
+
+    .service-grid,
+    .why-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-item {
+        width: 100%;
+    }
 }
