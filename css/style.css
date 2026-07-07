@@ -334,7 +334,11 @@ button:hover {
     color: #f7f2eb;
     text-decoration: none;
     transition: color .3s ease;
-    overflow-wrap: break-word;
+
+    display: block;
+    width: 100%;
+
+    overflow-wrap: anywhere;
     word-break: break-word;
 }
 
