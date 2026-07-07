@@ -572,3 +572,96 @@ nav ul li a:active {
         width: 100%;
     }
 }
+/* -------------------- */
+/* Tablet */
+/* -------------------- */
+@media (max-width: 1024px) {
+
+    .site-header {
+        padding: 10px 20px;
+    }
+
+    .logo-image {
+        width: 220px;
+    }
+
+    nav ul {
+        gap: 25px;
+    }
+
+    .hero {
+        padding: 170px 50px 80px;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .hero-text {
+        font-size: 20px;
+    }
+
+    .small-text {
+        font-size: 12px;
+        letter-spacing: 2px;
+    }
+}
+
+/* -------------------- */
+/* Mobile */
+/* -------------------- */
+@media (max-width: 768px) {
+
+    nav ul {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .logo-image {
+        width: 180px;
+    }
+
+    .hero {
+        padding: 180px 30px 80px;
+        text-align: center;
+    }
+
+    .hero-content {
+        margin: auto;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero-text {
+        font-size: 18px;
+        max-width: 100%;
+    }
+
+    .small-text {
+        font-size: 11px;
+        letter-spacing: 2px;
+    }
+
+    .hero-line {
+        margin: 20px auto;
+    }
+
+    .about,
+    .contact-details {
+        flex-direction: column;
+    }
+
+    .service-grid,
+    .why-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about,
+    .services,
+    .why-us,
+    .contact {
+        padding: 70px 30px;
+    }
+}
