@@ -499,167 +499,182 @@ nav ul li a:active {
     color:white;
     transform:translateY(-3px);
 }
-/* =========================
-   Responsive Design
-========================= */
+/* =====================================
+   RESPONSIVE DESIGN
+===================================== */
+
+/* ---------- Tablet ---------- */
 
 @media (max-width: 1024px) {
 
-    .site-header {
-        padding: 8px 20px;
+    .site-header{
+        padding: 10px 20px;
     }
 
-    .logo-image {
-        width: 250px;
+    .logo-image{
+        width:230px;
     }
 
-    nav ul {
-        gap: 25px;
+    nav ul{
+        gap:25px;
     }
 
-    .hero {
-        padding: 220px 50px 80px;
+    .hero{
+        padding:200px 50px 80px;
     }
 
-    .hero-content {
-        max-width: 100%;
+    .hero-content{
+        max-width:100%;
     }
 
-    .small-text {
-        font-size: 12px;
-        letter-spacing: 2px;
-        line-height: 1.6;
+    .hero h1{
+        font-size:48px;
     }
 
-    .hero h1 {
-        font-size: 48px;
+    .hero-text{
+        font-size:20px;
     }
 
-    .hero-text {
-        font-size: 20px;
+    .small-text{
+        font-size:12px;
+        letter-spacing:2px;
     }
 
     .about,
-    .contact-details {
-        flex-direction: column;
+    .contact-details{
+        flex-direction:column;
     }
 
     .service-grid,
-    .why-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-
-    .logo-image {
-        width: 200px;
-    }
-
-    nav ul {
-        gap: 12px;
-        flex-wrap: wrap;
-    }
-
-    .hero {
-        padding: 210px 25px 70px;
-        text-align: center;
-    }
-
-    .hero-content {
-        margin: 0 auto;
-    }
-
-    .hero-line {
-        margin: 20px auto;
-    }
-
-    .small-text {
-        font-size: 11px;
-        letter-spacing: 1px;
-        padding: 8px 14px;
-    }
-
-    .hero h1 {
-        font-size: 36px;
-    }
-
-    .hero-text {
-        font-size: 18px;
-        max-width: 100%;
+    .why-grid{
+        grid-template-columns:1fr;
     }
 
     .about,
     .services,
     .why-us,
-    .contact {
-        padding: 70px 25px;
-    }
-
-    .contact-details {
-        flex-direction: column;
-    }
-
-    .service-grid,
-    .why-grid {
-        grid-template-columns: 1fr;
+    .contact{
+        padding:80px 40px;
     }
 }
-/* -------------------- */
-/* Mobile */
-/* -------------------- */
-@media (max-width: 768px) {
 
-    nav ul {
-        flex-wrap: wrap;
-        gap: 15px;
+
+/* ---------- Mobile ---------- */
+
+@media (max-width:768px){
+
+    .site-header{
+        padding:10px 15px;
     }
 
-    .logo-image {
-        width: 180px;
+    .logo-image{
+        width:150px;
     }
 
-    .hero {
-        padding: 180px 30px 80px;
-        text-align: center;
+    nav{
+        margin-top:10px;
     }
 
-    .hero-content {
-        margin: auto;
+    nav ul{
+        gap:14px;
+        flex-wrap:wrap;
     }
 
-    .hero h1 {
-        font-size: 40px;
+    nav ul li a{
+        font-size:13px;
+        letter-spacing:2px;
     }
 
-    .hero-text {
-        font-size: 18px;
-        max-width: 100%;
+    .hero{
+
+        min-height:100vh;
+
+        padding:165px 25px 70px;
+
+        align-items:center;
+        text-align:left;
+
+        background-size:190%;
+        background-position:62% center;
+        background-repeat:no-repeat;
     }
 
-    .small-text {
-        font-size: 11px;
-        letter-spacing: 2px;
+    .hero-content{
+        margin:0;
+        max-width:100%;
     }
 
-    .hero-line {
-        margin: 20px auto;
+    .small-text{
+        font-size:10px;
+        letter-spacing:2px;
+        line-height:1.6;
     }
 
-    .about,
-    .contact-details {
-        flex-direction: column;
+    .hero-line{
+        margin:18px 0;
+        width:70px;
     }
 
-    .service-grid,
-    .why-grid {
-        grid-template-columns: 1fr;
+    .hero h1{
+        font-size:42px;
+        line-height:1.08;
+        max-width:100%;
+    }
+
+    .hero-text{
+        font-size:18px;
+        line-height:1.7;
+        max-width:100%;
+    }
+
+    .hero-button{
+        width:100%;
+        text-align:center;
     }
 
     .about,
     .services,
     .why-us,
-    .contact {
-        padding: 70px 30px;
+    .contact{
+        padding:70px 25px;
     }
+
+    .about{
+        flex-direction:column;
+        gap:35px;
+    }
+
+    .about-text h2{
+        font-size:34px;
+    }
+
+    .services h2,
+    .why-us h2,
+    .contact h2{
+        font-size:34px;
+    }
+
+    .service-grid,
+    .why-grid{
+        grid-template-columns:1fr;
+        gap:20px;
+    }
+
+    .contact-details{
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .contact-item{
+        min-height:auto;
+    }
+
+    .footer{
+        padding:35px 25px 20px;
+    }
+
+    .footer-logo img{
+        width:220px;
+    }
+
 }
