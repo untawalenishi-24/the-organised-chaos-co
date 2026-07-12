@@ -568,7 +568,7 @@ nav ul li a:active {
     }
 
     .logo-image{
-        width:170px;
+        width:190px;
     }
 
     nav{
@@ -585,19 +585,19 @@ nav ul li a:active {
         letter-spacing:2px;
     }
 
-    .hero{
+  .hero{
+    min-height: calc(100vh - 150px);
 
-        min-height:100vh;
+    padding: 240px 25px 70px;
 
-        padding:220px 30px 70px;
+    display: flex;
+    align-items: center;
+    text-align: left;
 
-        align-items:center;
-        text-align:left;
-
-        background-size:190%;
-        background-position:center center;
-        background-repeat:no-repeat;
-    }
+    background-size: cover;
+    background-position: 62% center;
+    background-repeat: no-repeat;
+}
 
     .hero-content{
         margin:0;
@@ -616,8 +616,8 @@ nav ul li a:active {
     }
 
     .hero h1{
-        font-size:42px;
-        line-height:1.08;
+        font-size:46px;
+        line-height:1.05;
         max-width:100%;
     }
 
@@ -628,8 +628,8 @@ nav ul li a:active {
     }
 
     .hero-button{
-        width:100%;
-        text-align:center;
+        width:auto;
+        display: inline-block;
     }
 
     .about,
