@@ -564,19 +564,19 @@ nav ul li a:active {
 @media (max-width:768px){
 
     .site-header{
-        padding:10px 15px;
+        padding:18px 0 14px;
     }
 
     .logo-image{
-        width:150px;
+        width:170px;
     }
 
     nav{
-        margin-top:10px;
+        margin-top:12px;
     }
 
     nav ul{
-        gap:14px;
+        gap:18px;
         flex-wrap:wrap;
     }
 
@@ -589,13 +589,13 @@ nav ul li a:active {
 
         min-height:100vh;
 
-        padding:165px 25px 70px;
+        padding:220px 30px 70px;
 
         align-items:center;
         text-align:left;
 
         background-size:190%;
-        background-position:62% center;
+        background-position:center center;
         background-repeat:no-repeat;
     }
 
