@@ -48,7 +48,12 @@
     const contactSection = $('#contact');
     const contacts = $$('.contact-item');
     const reveals = $$('[data-reveal]');
+    const titles = $$('[data-title-motion]');
+    const depthLayers = $$('[data-depth]').map(element => ({ element, anchor: element.closest('section'), distance: Number(element.dataset.depth) }));
+    const surfaces = $$('.service-card, .why-card, .contact-item');
+    const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
     let revealObserver;
+    let titleObserver;
     let framePending = false;
     let layoutPending = false;
     $('.footer').addEventListener('focusin', () => {
@@ -67,6 +72,78 @@
         }, { threshold: .06 });
         reveals.forEach(element => revealObserver.observe(element));
     }
+
+    // Preserve each heading's full accessible name while its visual words settle.
+    // Word masks occupy their original space, so the reveal never reflows a scene.
+    function prepareTitles() {
+        titles.forEach(title => {
+            title.setAttribute('aria-label', title.innerText.replace(/\s+/g, ' ').trim());
+            const walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT);
+            const nodes = [];
+            while (walker.nextNode()) nodes.push(walker.currentNode);
+            let index = 0;
+            nodes.forEach(node => {
+                const fragment = document.createDocumentFragment();
+                node.textContent.split(/(\s+)/).filter(Boolean).forEach(word => {
+                    if (/^\s+$/.test(word)) { fragment.append(document.createTextNode(word)); return; }
+                    const mask = document.createElement('span');
+                    const inner = document.createElement('span');
+                    mask.className = 'motion-word';
+                    mask.setAttribute('aria-hidden', 'true');
+                    set(mask, '--word-index', index++);
+                    inner.className = 'motion-word-inner';
+                    inner.textContent = word;
+                    mask.append(inner);
+                    fragment.append(mask);
+                });
+                node.replaceWith(fragment);
+            });
+            title.classList.add('title-prepared');
+        });
+    }
+
+    function observeTitles() {
+        titleObserver?.disconnect();
+        if (reduced.matches || !('IntersectionObserver' in window)) {
+            titles.forEach(title => title.classList.add('title-visible'));
+            return;
+        }
+        titleObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('title-visible');
+                    titleObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: .12 });
+        titles.filter(title => !title.classList.contains('title-visible')).forEach(title => titleObserver.observe(title));
+    }
+
+    // Light responds to a mouse; touch and keyboard retain steady reading planes.
+    let litSurface = null;
+    let lightPoint;
+    let lightPending = false;
+    surfaces.forEach(surface => {
+        surface.addEventListener('pointermove', event => {
+            if (reduced.matches || !finePointer.matches || event.pointerType !== 'mouse') return;
+            litSurface = surface;
+            lightPoint = { x: event.clientX, y: event.clientY };
+            if (lightPending) return;
+            lightPending = true;
+            requestAnimationFrame(() => {
+                lightPending = false;
+                if (!litSurface) return;
+                const rect = litSurface.getBoundingClientRect();
+                set(litSurface, '--surface-x', `${(clamp((lightPoint.x - rect.left) / rect.width) * 100).toFixed(1)}%`);
+                set(litSurface, '--surface-y', `${(clamp((lightPoint.y - rect.top) / rect.height) * 100).toFixed(1)}%`);
+                litSurface.classList.add('surface-lit');
+            });
+        }, { passive: true });
+        surface.addEventListener('pointerleave', () => {
+            surface.classList.remove('surface-lit');
+            if (litSurface === surface) litSurface = null;
+        });
+    });
 
     function updateControls(scene, index) {
         scene.active = clamp(index, 0, scene.items.length - 1);
@@ -90,7 +167,9 @@
         const storyFits = motion && storyHeight <= available + 2;
         document.body.classList.toggle('story-capable', storyFits);
         scenes.story.controls.hidden = !(storyFits || document.body.classList.contains('story-ready'));
-        const serviceHeight = $('.services-heading').offsetHeight + scenes.services.window.offsetHeight + scenes.services.controls.offsetHeight + 68;
+        const serviceStyle = getComputedStyle(scenes.services.stage);
+        const serviceSpacing = parseFloat(serviceStyle.paddingTop) + parseFloat(serviceStyle.paddingBottom) + 2 * parseFloat(serviceStyle.rowGap);
+        const serviceHeight = $('.services-heading').offsetHeight + scenes.services.window.offsetHeight + scenes.services.controls.offsetHeight + serviceSpacing;
         document.body.classList.toggle('gallery-capable', motion && serviceHeight <= available + 2);
         const principleHeight = Math.max(...scenes.approach.items.map(item => item.offsetHeight));
         set(scenes.approach.stage, '--principle-height', `${principleHeight}px`);
@@ -108,7 +187,12 @@
                 updateControls(scene, distance > 0 ? Math.round(scene.window.scrollLeft / distance * (scene.items.length - 1)) : 0);
             }
         });
-        if (!motion) positionOrbit(1, orbit.clientWidth);
+        if (!motion) {
+            positionOrbit(1, orbit.clientWidth);
+            depthLayers.forEach(({ element }) => set(element, '--depth-y', '0px'));
+            litSurface = null;
+            surfaces.forEach(surface => surface.classList.remove('surface-lit'));
+        }
         scheduleFrame();
     }
     function scheduleLayout() {
@@ -215,6 +299,10 @@
             return clamp((viewport * .6 - centre) / viewport, -.8, .8) * -8;
         });
         const servicePositions = scenes.services.items.map(card => ({ centre: card.offsetLeft + card.offsetWidth / 2 }));
+        const depthOffsets = depthLayers.map(({ anchor, distance }) => {
+            const rect = anchor.getBoundingClientRect();
+            return (clamp((viewport - rect.top) / (viewport + rect.height)) - .5) * distance * 2;
+        });
 
         photos.forEach((photo, index) => {
             set(photo, '--parallax-y', `${photoStates[index].offset.toFixed(2)}px`);
@@ -225,6 +313,7 @@
         set(heroCaption, '--caption-y', `${(photoStates[0].progress * 24).toFixed(2)}px`);
         set(ribbon, '--ribbon-x', `${(-240 * ribbonProgress).toFixed(2)}px`);
         set(ribbon, '--ribbon-echo-x', `${(-180 + 180 * ribbonProgress).toFixed(2)}px`);
+        depthLayers.forEach(({ element }, index) => set(element, '--depth-y', `${depthOffsets[index].toFixed(2)}px`));
         contacts.forEach((card, index) => {
             set(card, '--contact-y', `${contactOffsets[index].toFixed(2)}px`);
             set(card, '--contact-x', `${((index - 1) * 24 * contactFan).toFixed(2)}px`);
@@ -283,7 +372,13 @@
         const observer = new ResizeObserver(scheduleLayout);
         [journeyStage, $('.services-heading'), $('.why-intro'), ...scenes.story.items, ...scenes.services.items, ...scenes.approach.items].forEach(element => observer.observe(element));
     }
-    reduced.addEventListener('change', () => { observeReveals(); configureLayout(); });
+    reduced.addEventListener('change', () => { observeReveals(); observeTitles(); configureLayout(); });
     observeReveals();
+    prepareTitles();
+    observeTitles();
+    if (!reduced.matches) {
+        document.body.classList.add('intro-ready');
+        setTimeout(() => document.body.classList.remove('intro-ready'), 1600);
+    }
     configureLayout();
 })();
